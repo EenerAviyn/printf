@@ -40,7 +40,6 @@ static int (*func_selector(const char *format))(va_list)
 	return (identf[i].f);
 }
 
-
 /**
  * _printf - produces output according to a format.
  * @format: character string.
@@ -59,11 +58,12 @@ int _printf(const char *format, ...)
 	if (format == NULL)
 		return (-1);
 	va_start(ap, format);
+	char *buffer = malloc(sizeof(char) * 1024);
 	while (format[i])
 	{
 		while (format[i] != '%' && format[i])
 		{
-			_putchar(format[i]);
+			buffer[i] = format[i];
 			i++;
 			j++;
 		}
@@ -78,16 +78,15 @@ int _printf(const char *format, ...)
 		}
 		if (!format[i + 1])
 			return (-1);
-		_putchar(format[i]);
+		buffer[i] = format[i];
 		j++;
 		if (format[i + 1] == '%')
 			i += 2;
 		else
 			i++;
 	}
+	write(1, buffer, i)
 	va_end(ap);
 
 	return (j);
 }
-© 2022 GitHub, Inc.
-Terms
