@@ -101,6 +101,3 @@ unsigned long _pow(unsigned int b, unsigned int e)
 		pw *= b;
 	return (pw);
 }
-© 2022 GitHub, Inc.
-Terms
-Privacy
