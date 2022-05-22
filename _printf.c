@@ -1,44 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
-#include <stddef.h>
-#include <stdlib.h>
-
-/**
- * func_selector - selects a function based on corresponding specifier.
- * @format: specifier
- *
- * Return: pointer to corresponding function.
- */
-static int (*func_selector(const char *format))(va_list)
-{
-	unsigned int i = 0;
-	id_f identf[] = {
-		{"c", p_char},
-		{"s", p_str},
-		{"d", p_dec},
-		{"i", p_int},
-		{"b", p_binary},
-		{"u", p_udec},
-		{"o", p_oct},
-		{"x", p_xhex},
-		{"X", p_Xhex},
-		{"S", p_S},
-		{"p", p_p},
-		{"R", p_R},
-		{"r", p_r},
-		{NULL, NULL}
-	};
-
-	while (identf[i].id != NULL)
-	{
-		if (*(identf[i].id) == *format)
-		{
-			break;
-		}
-		i++;
-	}
-	return (identf[i].f);
-}
 
 /**
  * _printf - produces output according to a format.
