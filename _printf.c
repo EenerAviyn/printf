@@ -1,13 +1,11 @@
 #include "main.h"
 
 /**
- * _printf - produces output according to a format.
- * @format: character string.
+ * _printf - prints output
+ * @format: the format string
  *
- * Return: the number of characters printed (excluding the null byte used to
- * end the output to strings on success or -1 on error.
+ * Return: number of bytes printed
  */
-
 int _printf(const char *format, ...)
 {
 	int sum = 0;
@@ -31,9 +29,9 @@ int _printf(const char *format, ...)
 		}
 		start = p;
 		p++;
-		while (get_flag(p, &params)) /* while char at p is flag char */
+		while (get_flag(p, &params))
 		{
-			p++; /* next char */
+			p++;
 		}
 		p = get_width(p, &params, ap);
 		p = get_precision(p, &params, ap);
