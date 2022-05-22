@@ -50,43 +50,42 @@ static int (*func_selector(const char *format))(va_list)
 
 int _printf(const char *format, ...)
 {
-	unsigned int i = 0, j = 0;		/* i -loop and j -counter */
-	va_list ap;				/* req in variadic functions */
-	int (*func)(va_list);			/* pointer to function */
+	int sum = 0;
+	va_list ap;
+	char *p, *start;
+	params_t params = PARAMS_INIT;
 
-	/* check for nullity */
-	if (format == NULL)
-		return (-1);
 	va_start(ap, format);
-	char *buffer = malloc(sizeof(char) * 1024);
-	while (format[i])
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (p = (char *)format; *p; p++)
 	{
-		while (format[i] != '%' && format[i])
+		init_params(&params, ap);
+		if (*p != '%')
 		{
-			buffer[i] = format[i];
-			i++;
-			j++;
-		}
-		if (!format[i])
-			return (j);
-		func = func_selector(&format[i + 1]);
-		if (func != NULL)
-		{
-			j += func(ap);		/* count what is printed */
-			i += 2;			/* escape '%' and identifier */
+			sum += _putchar(*p);
 			continue;
 		}
-		if (!format[i + 1])
-			return (-1);
-		buffer[i] = format[i];
-		j++;
-		if (format[i + 1] == '%')
-			i += 2;
+		start = p;
+		p++;
+		while (get_flag(p, &params)) /* while char at p is flag char */
+		{
+			p++; /* next char */
+		}
+		p = get_width(p, &params, ap);
+		p = get_precision(p, &params, ap);
+		if (get_modifier(p, &params))
+			p++;
+		if (!get_specifier(p))
+			sum += print_from_to(start, p,
+								 params.l_modifier || params.h_modifier ? p - 1 : 0);
 		else
-			i++;
+			sum += get_print_func(p, ap, &params);
 	}
-	write(1, buffer, i)
+	_putchar(BUF_FLUSH);
 	va_end(ap);
-
-	return (j);
+	return (sum);
 }
