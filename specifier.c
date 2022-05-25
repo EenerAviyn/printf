@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * get_specifier - finds the format function
+ * get_specifier - finds format function
  * @s: format string
- * Return: number of bytes printed
+ * Return: the number of bytes printed
  */
 
 int (*get_specifier(char *s))(va_list ap, params_t *params)
@@ -23,7 +23,8 @@ int (*get_specifier(char *s))(va_list ap, params_t *params)
 		{"S", print_S},
 		{"r", print_rev},
 		{"R", print_rot13},
-		{NULL, NULL}};
+		{NULL, NULL}
+	};
 	int i = 0;
 
 	while (specifiers[i].specifier)
@@ -38,7 +39,7 @@ int (*get_specifier(char *s))(va_list ap, params_t *params)
 }
 
 /**
- * get_print_func - finds the format function
+ * get_print_func - finds format function
  * @s: format string
  * @ap: argument pointer
  * @params: parameters struct
@@ -55,11 +56,10 @@ int get_print_func(char *s, va_list ap, params_t *params)
 }
 
 /**
- * get_flag - finds the flag function
+ * get_flag - finds flag function
  * @s: format string
  * @params: parameters struct
- *
- * Return: if flag is valid
+ * Return: if flag was valid
  */
 
 int get_flag(char *s, params_t *params)
@@ -68,21 +68,21 @@ int get_flag(char *s, params_t *params)
 
 	switch (*s)
 	{
-	case '+':
-		i = params->plus_flag = 1;
-		break;
-	case ' ':
-		i = params->space_flag = 1;
-		break;
-	case '#':
-		i = params->hashtag_flag = 1;
-		break;
-	case '-':
-		i = params->minus_flag = 1;
-		break;
-	case '0':
-		i = params->zero_flag = 1;
-		break;
+		case '+':
+			i = params->plus_flag = 1;
+			break;
+		case ' ':
+			i = params->space_flag = 1;
+			break;
+		case '#':
+			i = params->hashtag_flag = 1;
+			break;
+		case '-':
+			i = params->minus_flag = 1;
+			break;
+		case '0':
+			i = params->zero_flag = 1;
+			break;
 	}
 	return (i);
 }
@@ -91,7 +91,7 @@ int get_flag(char *s, params_t *params)
  * get_modifier - finds modifier function
  * @s: format string
  * @params: parameters struct
- * Return: if modifier is valid
+ * Return: if modifier was valid
  */
 
 int get_modifier(char *s, params_t *params)
@@ -111,7 +111,7 @@ int get_modifier(char *s, params_t *params)
 }
 
 /**
- * get_width - gets width from the format string
+ * get_width - gets width from format string
  * @s: format string
  * @params: parameters struct
  * @ap: argument pointer
