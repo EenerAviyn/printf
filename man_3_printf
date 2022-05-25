@@ -280,3 +280,6 @@ printf(3)
 The \fB_printf()\fR function emulates functionality of the C standard library 
 function \fBprintf()\fR. This man page borrows from the corresponding Linux 
 man page printf(3).
+
+.SH AUTHOR
+Renee Mulela renee.mulela@gmail.com and Kevin Wanyama kvnwanyama@gmail.com
